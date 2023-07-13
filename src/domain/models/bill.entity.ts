@@ -12,7 +12,7 @@ import {
 
 @Entity({ name: 'bills', orderBy: { name: 'ASC' } })
 export class Bill {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn()
   @Expose()
   id: string;
 
