@@ -30,6 +30,11 @@ export class Bill {
     name: 'createdAt',
     default: () => 'CURRENT_TIMESTAMP',
     type: 'timestamp',
+    transformer: {
+      from: (value: Date) => new Date(value),
+      to: (value: Date) =>
+        value instanceof Date ? value.toISOString() : value,
+    },
   })
   @Expose()
   createdAt: Date;

@@ -42,7 +42,7 @@ export class FilesController {
   async uploadFile(
     @UploadedFiles() files: Array<Express.Multer.File>,
   ): Promise<BaseBillDto[]> {
-    const file = files[0];
+    const file = files.length > 0 ? files[0] : null;
     return this.filesService.processCsvFile(file);
   }
 }

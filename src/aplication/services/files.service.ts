@@ -22,7 +22,7 @@ export class FilesService {
   ) {}
 
   async processCsvFile(file: Express.Multer.File): Promise<BaseBillDto[]> {
-    if (file.mimetype !== 'text/csv') {
+    if (file?.mimetype !== 'text/csv') {
       throw new BadRequestException(
         'O arquivo esperado deve ser de extensão .csv',
       );
