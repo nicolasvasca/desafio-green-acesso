@@ -44,6 +44,16 @@ export class BaseBillDto {
   @Expose()
   readonly value: number;
 
+  @ApiProperty({
+    type: Date,
+    description: 'Dada de criação no banco de dados',
+    example: '2023-07-13T21:11:03.529Z',
+    required: true,
+  })
+  @IsNumber()
+  @Expose()
+  readonly createdAt: Date;
+
   constructor(obj: Bill) {
     Object.assign(
       this,
