@@ -10,6 +10,8 @@ import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateBillDto } from '../../presentation/dtos/bills/create-bill.dto';
 import { LotsService } from './lots.service';
+import { FilterBillDto } from '../../presentation/dtos/bills/filter-bill.dto';
+import { queryBuilder } from '../../utils/helpers/queryBuilder';
 
 @Injectable()
 export class BillsService {
@@ -47,8 +49,12 @@ export class BillsService {
     return bill;
   }
 
-  async find(): Promise<Bill[]> {
-    const bills = await this.billsRepository.find();
+  async find(filter?: FilterBillDto): Promise<Bill[]> {
+    let query = this.billsRepository
+      .createQueryBuilder('bill')
+      .leftJoinAndSelect('bill.lot', 'lot');
+    query = queryBuilder.bills(query, filter);
+    const bills = await query.getMany();
     return bills;
   }
 

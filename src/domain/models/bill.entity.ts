@@ -52,7 +52,7 @@ export class Bill {
   value: number;
 
   @ManyToOne(() => Lot, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })
-  @JoinColumn()
+  @JoinColumn({ name: 'lotId' })
   lot: Lot;
 
   @Column({ default: false })
