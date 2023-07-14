@@ -10,6 +10,7 @@ import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateBillDto } from '../../presentation/dtos/bills/create-bill.dto';
 import { LotsService } from './lots.service';
+import { FilterBillDto } from '../../presentation/dtos/bills/filter-bill.dto';
 
 @Injectable()
 export class BillsService {
@@ -47,10 +48,85 @@ export class BillsService {
     return bill;
   }
 
-  async find(): Promise<Bill[]> {
-    const bills = await this.billsRepository.find();
+  async find(filter?: FilterBillDto): Promise<Bill[]> {
+    let query = this.billsRepository
+      .createQueryBuilder('bill')
+      .leftJoinAndSelect('bill.lot', 'lot');
+    let first = true;
+    if (filter?.name) {
+      const nameWithoutSpaces = filter.name.replace(/\s/g, '');
+      query = query.where('bill.nameDrawn ILIKE :name', {
+        name: `%${nameWithoutSpaces}%`,
+      });
+      first = false;
+    }
+
+    if (filter?.valueMin && filter?.valueMax) {
+      query = first
+        ? query.where('bill.value BETWEEN :min AND :max', {
+            min: filter.valueMin,
+            max: filter.valueMax,
+          })
+        : query.andWhere('bill.value BETWEEN :min AND :max', {
+            min: filter.valueMin,
+            max: filter.valueMax,
+          });
+    } else if (filter?.valueMin) {
+      query = first
+        ? query.where('bill.value >= :min', { min: filter.valueMin })
+        : query.andWhere('bill.value >= :min', { min: filter.valueMin });
+    } else if (filter?.valueMax) {
+      query = first
+        ? query.where('bill.value <= :max', { max: filter.valueMax })
+        : query.andWhere('bill.value <= :max', { max: filter.valueMax });
+    }
+
+    if (filter?.lotId) {
+      query = first
+        ? query.where('bill.lotId = :lotId', { lotId: filter.lotId })
+        : query.andWhere('bill.lotId = :lotId', { lotId: filter.lotId });
+    }
+
+    const bills = await query.getMany();
     return bills;
   }
+
+  // async find(filter?: FilterBillDto): Promise<Bill[]> {
+  //   let query = {};
+  //   if (filter?.name) {
+  //     const nameWithoutSpaces = filter.name.replace(/\s/g, '').toUpperCase();
+  //     query = {
+  //       ...query,
+  //       nameDrawn: ILike(`%${nameWithoutSpaces}%`),
+  //     };
+  //   }
+  //   if (filter?.valueMin) {
+  //     query = {
+  //       ...query,
+  //       value: MoreThan(filter.valueMin),
+  //     };
+  //   }
+  //   if (filter?.valueMax) {
+  //     query = {
+  //       ...query,
+  //       value: filter?.valueMin
+  //         ? Between(filter.valueMin, filter.valueMax)
+  //         : LessThan(filter.valueMax),
+  //     };
+  //   }
+  //   if (filter?.lotId) {
+  //     console.log(filter?.lotId);
+  //     query = {
+  //       ...query,
+  //       lotId: filter.lotId,
+  //     };
+  //   }
+  //   const bills = await this.billsRepository.find({
+  //     where: query,
+  //     relations: { lot: true },
+  //   });
+  //   return bills;
+  // }
 
   async findOne(nameDrawn: string, hasPDF: boolean): Promise<Bill> {
     const bill = await this.billsRepository.findOne({
