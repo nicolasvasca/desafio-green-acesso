@@ -7,7 +7,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-@Entity({ name: 'lots', orderBy: { name: 'ASC' } })
+@Entity({ name: 'lots', orderBy: { id: 'ASC' } })
 export class Lot {
   @PrimaryGeneratedColumn()
   @Expose()

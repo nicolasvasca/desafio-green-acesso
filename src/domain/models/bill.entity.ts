@@ -10,7 +10,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-@Entity({ name: 'bills', orderBy: { name: 'ASC' } })
+@Entity({ name: 'bills', orderBy: { id: 'ASC' } })
 export class Bill {
   @PrimaryGeneratedColumn()
   @Expose()
