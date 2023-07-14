@@ -58,43 +58,6 @@ export class BillsService {
     return bills;
   }
 
-  // async find(filter?: FilterBillDto): Promise<Bill[]> {
-  //   let query = {};
-  //   if (filter?.name) {
-  //     const nameWithoutSpaces = filter.name.replace(/\s/g, '').toUpperCase();
-  //     query = {
-  //       ...query,
-  //       nameDrawn: ILike(`%${nameWithoutSpaces}%`),
-  //     };
-  //   }
-  //   if (filter?.valueMin) {
-  //     query = {
-  //       ...query,
-  //       value: MoreThan(filter.valueMin),
-  //     };
-  //   }
-  //   if (filter?.valueMax) {
-  //     query = {
-  //       ...query,
-  //       value: filter?.valueMin
-  //         ? Between(filter.valueMin, filter.valueMax)
-  //         : LessThan(filter.valueMax),
-  //     };
-  //   }
-  //   if (filter?.lotId) {
-  //     console.log(filter?.lotId);
-  //     query = {
-  //       ...query,
-  //       lotId: filter.lotId,
-  //     };
-  //   }
-  //   const bills = await this.billsRepository.find({
-  //     where: query,
-  //     relations: { lot: true },
-  //   });
-  //   return bills;
-  // }
-
   async findOne(nameDrawn: string, hasPDF: boolean): Promise<Bill> {
     const bill = await this.billsRepository.findOne({
       where: {
