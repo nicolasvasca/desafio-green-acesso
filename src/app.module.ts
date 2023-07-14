@@ -6,6 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { LotsModule } from './infra/ioc/lots.module';
 import { BillsModule } from './infra/ioc/bills.module';
 import { FilesModule } from './infra/ioc/files.module';
+import { PDFOrdersModule } from './infra/ioc/pdf-orders.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { FilesModule } from './infra/ioc/files.module';
     LotsModule,
     BillsModule,
     FilesModule,
+    PDFOrdersModule,
   ],
   controllers: [AppController],
   providers: [AppService],

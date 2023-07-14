@@ -10,7 +10,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-@Entity({ name: 'bills', orderBy: { name: 'ASC' } })
+@Entity({ name: 'bills', orderBy: { id: 'ASC' } })
 export class Bill {
   @PrimaryGeneratedColumn()
   @Expose()
@@ -54,4 +54,8 @@ export class Bill {
   @ManyToOne(() => Lot, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })
   @JoinColumn()
   lot: Lot;
+
+  @Column({ default: false })
+  @Expose()
+  hasPDF: boolean;
 }
