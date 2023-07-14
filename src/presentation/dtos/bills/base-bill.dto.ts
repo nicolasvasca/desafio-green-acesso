@@ -35,6 +35,16 @@ export class BaseBillDto {
   readonly digitableLine: string;
 
   @ApiProperty({
+    type: Boolean,
+    description: 'Ativo',
+    example: true,
+    required: true,
+  })
+  @IsString()
+  @Expose()
+  readonly active: boolean;
+
+  @ApiProperty({
     type: Number,
     description: 'Valor do boleto',
     example: 188,
