@@ -11,6 +11,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { CreateBillDto } from '../../presentation/dtos/bills/create-bill.dto';
 import { LotsService } from './lots.service';
 import { FilterBillDto } from '../../presentation/dtos/bills/filter-bill.dto';
+import { queryBuilder } from '../../utils/helpers/queryBuilder';
 
 @Injectable()
 export class BillsService {
@@ -52,41 +53,7 @@ export class BillsService {
     let query = this.billsRepository
       .createQueryBuilder('bill')
       .leftJoinAndSelect('bill.lot', 'lot');
-    let first = true;
-    if (filter?.name) {
-      const nameWithoutSpaces = filter.name.replace(/\s/g, '');
-      query = query.where('bill.nameDrawn ILIKE :name', {
-        name: `%${nameWithoutSpaces}%`,
-      });
-      first = false;
-    }
-
-    if (filter?.valueMin && filter?.valueMax) {
-      query = first
-        ? query.where('bill.value BETWEEN :min AND :max', {
-            min: filter.valueMin,
-            max: filter.valueMax,
-          })
-        : query.andWhere('bill.value BETWEEN :min AND :max', {
-            min: filter.valueMin,
-            max: filter.valueMax,
-          });
-    } else if (filter?.valueMin) {
-      query = first
-        ? query.where('bill.value >= :min', { min: filter.valueMin })
-        : query.andWhere('bill.value >= :min', { min: filter.valueMin });
-    } else if (filter?.valueMax) {
-      query = first
-        ? query.where('bill.value <= :max', { max: filter.valueMax })
-        : query.andWhere('bill.value <= :max', { max: filter.valueMax });
-    }
-
-    if (filter?.lotId) {
-      query = first
-        ? query.where('bill.lotId = :lotId', { lotId: filter.lotId })
-        : query.andWhere('bill.lotId = :lotId', { lotId: filter.lotId });
-    }
-
+    query = queryBuilder.bills(query, filter);
     const bills = await query.getMany();
     return bills;
   }
