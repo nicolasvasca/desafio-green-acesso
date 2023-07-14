@@ -54,4 +54,8 @@ export class Bill {
   @ManyToOne(() => Lot, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })
   @JoinColumn()
   lot: Lot;
+
+  @Column({ default: false })
+  @Expose()
+  hasPDF: boolean;
 }

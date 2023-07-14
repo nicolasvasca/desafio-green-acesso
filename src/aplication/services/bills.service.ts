@@ -46,4 +46,40 @@ export class BillsService {
     }
     return bill;
   }
+
+  async find(): Promise<Bill[]> {
+    const bills = await this.billsRepository.find();
+    return bills;
+  }
+
+  async findOne(nameDrawn: string, hasPDF: boolean): Promise<Bill> {
+    const bill = await this.billsRepository.findOne({
+      where: {
+        nameDrawn: nameDrawn,
+        hasPDF: hasPDF,
+      },
+    });
+    if (!bill) {
+      throw new NotFoundException('Nenhum Boleto encontrado');
+    }
+    return bill;
+  }
+
+  async updateHasPDF(id: string): Promise<Bill> {
+    const bill = await this.findById(id);
+
+    bill.hasPDF = true;
+
+    const billUpdated = await this.billsRepository.save(bill);
+
+    return billUpdated;
+  }
+
+  async updateBillsHasPdf(ids: string[]): Promise<Bill[]> {
+    return Promise.all(
+      ids.map((id) => {
+        return this.updateHasPDF(id);
+      }),
+    );
+  }
 }
