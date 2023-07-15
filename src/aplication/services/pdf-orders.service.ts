@@ -1,6 +1,6 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { PDFOrder } from 'src/domain/models/pdf-order.entity';
+import { PDFOrder } from '../../domain/models/pdf-order.entity';
 import { Repository } from 'typeorm';
 
 @Injectable()
@@ -16,7 +16,7 @@ export class PDFOrdersService {
 
     if (!pdfOrderSaved) {
       throw new InternalServerErrorException(
-        'Problema ao criar lote. Tente Novamente',
+        'Problema ao criar ordem do pdf. Tente Novamente',
       );
     }
 
