@@ -1,0 +1,121 @@
+{
+	"info": {
+		"_postman_id": "5835a017-3c23-4009-970e-3c54aebc6be3",
+		"name": "Desafio Green Acesso",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26511189"
+	},
+	"item": [
+		{
+			"name": "/files/bills",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "files",
+							"type": "file",
+							"src": "/home/nicolas/Documents/boletos.csv"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:3000/files/bills",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"files",
+						"bills"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/bills",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "files",
+							"type": "file",
+							"src": []
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:3000/bills",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"bills"
+					],
+					"query": [
+						{
+							"key": "valueMin",
+							"value": "180",
+							"disabled": true
+						},
+						{
+							"key": "valueMax",
+							"value": "183",
+							"disabled": true
+						},
+						{
+							"key": "name",
+							"value": "Jose",
+							"disabled": true
+						},
+						{
+							"key": "lotId",
+							"value": "4",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/files/bills/pdf",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "files",
+							"type": "file",
+							"src": "/home/nicolas/Documents/billExample.pdf"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:3000/files/bills",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"files",
+						"bills"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
