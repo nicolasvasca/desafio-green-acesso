@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { getRepositoryToken } from '@nestjs/typeorm';
 import { BillsService } from '../../src/aplication/services/bills.service';
 import MockRepository from './mocks/mock-repository';
 import { LotsService } from '../../src/aplication/services/lots.service';
-import { getRepositoryToken } from '@nestjs/typeorm';
 import { Bill } from '../../src/domain/models/bill.entity';
 import { Lot } from '../../src/domain/models/lot.entity';
 import MockBill from './mocks/mock-bill';

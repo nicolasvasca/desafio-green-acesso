@@ -16,7 +16,7 @@ export class PDFOrdersService {
 
     if (!pdfOrderSaved) {
       throw new InternalServerErrorException(
-        'Problema ao criar lote. Tente Novamente',
+        'Problema ao criar ordem do pdf. Tente Novamente',
       );
     }
 

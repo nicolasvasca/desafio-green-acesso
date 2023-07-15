@@ -1,13 +1,13 @@
+import {
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { LotsService } from '../../src/aplication/services/lots.service';
 import MockRepository from './mocks/mock-repository';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Lot } from '../../src/domain/models/lot.entity';
 import MockLot from './mocks/mock-lot';
-import {
-  InternalServerErrorException,
-  NotFoundException,
-} from '@nestjs/common';
 
 describe('LotsService', () => {
   let service: LotsService;
