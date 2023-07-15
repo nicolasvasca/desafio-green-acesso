@@ -7,6 +7,9 @@ export default class MockRepository {
       save: jest.fn(),
       update: jest.fn(),
       delete: jest.fn(),
+      createQueryBuilder: jest.fn(),
+      leftJoinAndSelect: jest.fn(),
+      getMany: jest.fn(),
     };
   }
   static resetMocks(mockRepository) {
@@ -16,6 +19,9 @@ export default class MockRepository {
     mockRepository.save.mockReset();
     mockRepository.update.mockReset();
     mockRepository.delete.mockReset();
+    mockRepository.createQueryBuilder.mockReset();
+    mockRepository.leftJoinAndSelect.mockReset();
+    mockRepository.getMany.mockReset();
     return mockRepository;
   }
 }
