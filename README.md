@@ -12,7 +12,7 @@ Também há a documentação no Swagger. Para acessá-la, basta executar a aplic
 $ http://localhost:3000/
 ```
 
-Ao acessar essa URL em sei navegador, você encontrará todas as rotas disponíveis para uso.
+Ao acessar essa URL em seu navegador, você encontrará todas as rotas disponíveis para uso.
 <img src="docs/images/swagger1.png" alt="Exemplo de imagem do Swagger">
 <img src="docs/images/swagger2.png" alt="Exemplo de imagem do Swagger">
 
