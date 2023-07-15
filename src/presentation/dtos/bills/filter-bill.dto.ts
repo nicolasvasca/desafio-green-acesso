@@ -46,4 +46,17 @@ export class FilterBillDto {
   @IsOptional()
   @Expose()
   readonly lotId?: string;
+
+  @ApiProperty({
+    type: Number,
+    description:
+      'Se relatorio for igual a 1 ele irá retornar todos os boletos em um arquivo pdf' +
+      'Se relatorio for igual a 2 ele irá retornar todos os boletos em um arquivo xlsx',
+    example: 1,
+    required: false,
+  })
+  @IsNumberString()
+  @IsOptional()
+  @Expose()
+  readonly relatory?: number;
 }
